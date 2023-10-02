@@ -24,4 +24,4 @@
 -keepattributes SourceFile,LineNumberTable
 -keep public class * extends java.lang.Exception
 
--keep class com.salesforce.android.** { *; }
+#-keep class com.salesforce.android.** { *; }
