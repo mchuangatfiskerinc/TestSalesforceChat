@@ -1,0 +1,27 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.4.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21"
+    }
+}
+
+plugins {
+    id "com.github.ben-manes.versions" version "0.39.0"
+    id "org.sonarqube" version "3.4.0.2513"
+    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://salesforce-marketingcloud.github.io/MarketingCloudSDK-Android/repository" }
+        maven { url "https://s3.amazonaws.com/salesforcesos.com/android/maven/release" }
+        mavenLocal()
+    }
+}

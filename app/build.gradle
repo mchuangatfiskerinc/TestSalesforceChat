@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.fisker.sfchat'
+    compileSdk 33
+
+    signingConfigs {
+        release {
+            storeFile file('keystores/key.jks')
+            storePassword 'fisker'
+            keyPassword 'fisker'
+            keyAlias = 'fiskerdev'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.fisker.sfchat"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        buildConfigField "String", "salesforce_org_id", '"REPLACE"'
+        buildConfigField "String", "salesforce_deployment_id", '"REPLACE"'
+        buildConfigField "String", "salesforce_live_agent_id", '"REPLACE"'
+        buildConfigField "String", "salesforce_button_id", '"REPLACE"'
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.7'
+    }
+    packagingOptions {
+        resources {
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}', 'META-INF/AL2.0', 'META-INF/LGPL2.1']
+        }
+        exclude 'mockito-extensions/org.mockito.plugins.MockMaker'
+    }
+}
+
+dependencies {
+    implementation 'com.salesforce.marketingcloud:marketingcloudsdk:8.0.6'
+    implementation 'com.salesforce.service:chat-ui:4.3.5'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.7.1'
+    implementation 'androidx.compose.ui:ui:1.5.0-beta03'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.5.0-beta03'
+    implementation 'androidx.compose.material3:material3:1.1.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+}
